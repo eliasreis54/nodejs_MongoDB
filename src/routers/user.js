@@ -1,9 +1,12 @@
 import { Router } from 'express';
+import User from '../models/user';
 
 const UserRouter = Router();
 
 UserRouter.get('/user', (req, res) => {
-  res.send('get');
+  User.find({}, (err, users) => {
+    res.json(users);
+  });
 });
 
 UserRouter.post('/user', (req, res) => {
@@ -11,6 +14,8 @@ UserRouter.post('/user', (req, res) => {
 });
 
 UserRouter.put('/user', (req, res) => {
+  const user = new User({ name: 'Elias', age: '22' });
+  user.save();
   res.send('put');
 });
 
